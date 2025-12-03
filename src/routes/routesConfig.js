@@ -9,13 +9,13 @@ export const routesConfig = [
     path: "/auth",
     layout: AuthLayout,
     children: [
-      { path: "/login", component: LoginPage },
-      { path: "/register", component: RegisterPage },
+      { path: "/login", component: LoginPage, authRequired: false },
+      { path: "/register", component: RegisterPage, authRequired: false },
     ],
   },
 
   {
     layout: MainLayout,
-    children: [{ path: "/tasks", component: TasksPage }],
+    children: [{ path: "/tasks", component: TasksPage, authRequired: true }],
   },
 ];

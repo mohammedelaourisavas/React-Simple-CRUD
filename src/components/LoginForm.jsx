@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import { TextField, Button, Box, Typography, Alert, Link } from "@mui/material";
 import { useLogin } from "../hooks/useLogin";
 
 const LoginForm = () => {
@@ -77,6 +77,15 @@ const LoginForm = () => {
         >
           {isLoading ? "Logging in..." : "Login"}
         </Button>
+
+        <Typography mt={2} variant="body2" textAlign="center">
+          Don't have an account?  
+          <Link navigate="/register"
+          sx={{
+            cursor:"pointer"
+          }}
+          >Register here.</Link>
+        </Typography>
       </form>
     </Box>
   );

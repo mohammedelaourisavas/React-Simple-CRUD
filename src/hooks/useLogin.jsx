@@ -8,7 +8,6 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: loginService,
     onSuccess: (data) => {
-      console.log("Login successful", data);
       Object.keys(data).forEach(key => setToken(key, data[key]));
       navigate("/tasks");
     },

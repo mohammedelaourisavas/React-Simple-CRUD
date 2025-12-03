@@ -60,8 +60,9 @@ export const useDeleteTask = () => {
 export const useToggleTaskCompletion = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, isCompleted }) => {
-      const res = await toggleTaskCompletion(id, isCompleted);
+    mutationFn: async ({ id, completed }) => {
+      const res = await toggleTaskCompletion(id, completed);
+      console.log("Toggling task:", id, "to", completed);
       return res.data;
     },
     onSuccess: () => queryClient.invalidateQueries(["tasks"]),

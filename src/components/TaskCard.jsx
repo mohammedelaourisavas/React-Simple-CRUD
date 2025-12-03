@@ -1,5 +1,3 @@
-// src/components/TaskCard.jsx
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +5,6 @@ import {
   CardActions,
   IconButton,
   Checkbox,
-  Chip,
   Box,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -15,11 +12,6 @@ import PendingIcon from "@mui/icons-material/Pending";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const priorityColors = {
-  High: "#ff8a80", // red
-  Medium: "#fff176", // yellow
-  Low: "#80cbc4", // teal
-};
 
 const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
   return (
@@ -27,9 +19,8 @@ const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
       sx={{
         mb: 2,
         borderRadius: 3,
-        boxShadow: 3,
         transition: "0.3s",
-        "&:hover": { transform: "translateY(-3px)", boxShadow: 6 },
+        "&:hover": { transform: "scale(1.03)", boxShadow: 6 },
       }}
     >
       <CardContent
@@ -42,7 +33,7 @@ const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
         <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
           <Checkbox
             checked={task.completed}
-            onChange={() => onToggle(task.id)}
+            onChange={() => onToggle(task.id, !task.completed)}
             icon={<PendingIcon />}
             checkedIcon={<CheckCircleIcon color="success" />}
             sx={{ mr: 1 }}
@@ -56,18 +47,14 @@ const TaskCard = ({ task, onToggle, onDelete, onUpdate }) => {
           >
             {task.title}
           </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ ml: 2 }}
+          >
+            {task.description}
+          </Typography>
         </Box>
-
-        <Chip
-          label={task.priority}
-          size="small"
-          sx={{
-            ml: 2,
-            fontWeight: "bold",
-            color: "#fff",
-            backgroundColor: priorityColors[task.priority] || "#9e9e9e",
-          }}
-        />
       </CardContent>
 
       <CardActions sx={{ justifyContent: "flex-end" }}>
