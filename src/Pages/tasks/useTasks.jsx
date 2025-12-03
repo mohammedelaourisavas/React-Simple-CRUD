@@ -44,7 +44,7 @@ export function useTasks() {
         const res = await createTask(payload);
         const created = res?.data;
         if (created) {
-          setTasks((prev) => [...prev, created]);
+          setTasks((prev) => [...prev, {...created,createdAt: new Date().toISOString()}]);
           Swal.fire("Success", "Task added successfully!", "success");
         } else {
           Swal.fire("Error", "Unexpected server response.", "error");
@@ -69,28 +69,24 @@ export function useTasks() {
 
   // Toggle completed
   const toggle = async (id, completed) => {
-    console.log(id, completed);
-
     try {
       const res = await toggleTaskCompletion(id, completed);
       const updatedTask = res?.data;
-
-      setTasks((prev) =>
-        prev.map((t) =>
-          t.id === id
-            ? updatedTask || { ...t, completed } // fallback if backend doesn't return data
-            : t
-        )
-      );
-
+      if (!updatedTask) {
+        Swal.fire("Error", "Unexpected server response");
+        throw new Error("No updated task returned from server");
+      }else {
+        setTasks((prev) =>
+          prev.map((t) => (t.id === id ? updatedTask : t))
+        );
       Swal.fire(
         completed ? "Completed!" : "Marked Incomplete!",
         completed ? "Task completed." : "Task marked as incomplete.",
         completed ? "success" : "info"
       );
+      }
     } catch (err) {
       Swal.fire("Error", "Failed to toggle task completion", err.message);
-      // fallback local update so UI remains responsive
       setTasks((prev) =>
         prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
       );

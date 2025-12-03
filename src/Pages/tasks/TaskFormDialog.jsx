@@ -84,7 +84,7 @@ export default function TaskFormDialog({
           control={
             <Checkbox
               checked={formValues.completed}
-              onChange={handleChange("completed")}
+              onChange={ toggle => handleChange("completed")(toggle) }
             />
           }
           label="Completed"

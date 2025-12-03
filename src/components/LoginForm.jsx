@@ -80,9 +80,10 @@ const LoginForm = () => {
 
         <Typography mt={2} variant="body2" textAlign="center">
           Don't have an account?  
-          <Link navigate="/register"
+          <Link href="/register"
           sx={{
-            cursor:"pointer"
+            cursor:"pointer",
+            ml:1
           }}
           >Register here.</Link>
         </Typography>

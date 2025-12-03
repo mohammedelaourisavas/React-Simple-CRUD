@@ -2,6 +2,7 @@ import { Stack, Button, Grid, TextField, Typography, Link} from "@mui/material"
 import { Formik, Form } from "formik"
 import { RegisterSchema } from "../../Schema/RegisterFormSchema"
 import { PeopleRounded } from "@mui/icons-material";
+import Swal from "sweetalert2";
 
 export default function RegisterPage() {
   return (
@@ -27,7 +28,12 @@ export default function RegisterPage() {
         validationSchema={RegisterSchema}
         onSubmit={(values) => {
           console.log("REGISTER DATA:", values);
-          alert("Registered Successfully!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful',
+            text: 'You have been registered successfully!',
+          });
+          //
         }}
       >
         {({ errors, touched, handleChange }) => (
@@ -105,7 +111,8 @@ export default function RegisterPage() {
         <Link 
           href="/login"
           sx={{
-            cursor:"pointer"
+            cursor:"pointer",
+            ml:1
           }}
         >
           Login here.
